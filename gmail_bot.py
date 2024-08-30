@@ -96,7 +96,7 @@ def send_reply(service, reply_email):
 
 def should_respond_to(sender):
     """Check if the email should be responded to based on the sender's address."""
-    return sender.lower() == "justincrompton@msn.com"
+    return sender.lower() == ""
 
 def process_message(service, message):
     """Process each unread message."""
