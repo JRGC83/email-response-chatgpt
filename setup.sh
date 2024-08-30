@@ -17,7 +17,7 @@ pip install --upgrade pip
 
 # Step 4: Install required Python packages
 echo "Installing required Python packages..."
-pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib openai schedule
+pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib openai schedule python-dotenv
 
 # Step 5: Check if credentials.json exists
 if [ ! -f "credentials.json" ]; then
@@ -26,7 +26,14 @@ if [ ! -f "credentials.json" ]; then
     exit 1
 fi
 
-# Step 6: Ensure that credentials.json is correct
+# Step 6: Check if config.env exists
+if [ ! -f "config.env" ]; then
+    echo "Error: config.env not found. Please create a config.env file with your OpenAI API key."
+    deactivate
+    exit 1
+fi
+
+# Step 7: Ensure that credentials.json is correct
 echo "Checking credentials.json..."
 if grep -q '"client_id"' "credentials.json"; then
     echo "credentials.json looks correct."
@@ -36,14 +43,14 @@ else
     exit 1
 fi
 
-# Step 7: Check if email_bot.py exists
+# Step 8: Check if email_bot.py exists
 if [ ! -f "email_bot.py" ]; then
     echo "Error: email_bot.py not found. Please place your email_bot.py script in the current directory."
     deactivate
     exit 1
 fi
 
-# Step 8: Notify user of next steps
+# Step 9: Notify user of next steps
 echo "Setup complete. To run the Gmail bot, activate the virtual environment and execute the script:"
 echo "source $VENV_NAME/bin/activate"
 echo "python email_bot.py"
