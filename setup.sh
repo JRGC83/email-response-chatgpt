@@ -28,17 +28,21 @@ fi
 
 # Step 6: Check if config.env exists
 if [ ! -f "config.env" ]; then
-    echo "Error: config.env not found. Please create a config.env file with your OpenAI API key."
+    echo "Error: config.env not found. Please create a config.env file with your OpenAI API key and whitelist emails."
     deactivate
     exit 1
 fi
 
-# Step 7: Ensure that credentials.json is correct
-echo "Checking credentials.json..."
-if grep -q '"client_id"' "credentials.json"; then
-    echo "credentials.json looks correct."
-else
-    echo "Error: credentials.json does not seem to be valid. Please ensure it is correctly formatted."
+# Step 7: Ensure that config.env has necessary variables
+echo "Checking config.env for necessary variables..."
+if ! grep -q 'OPENAI_API_KEY=' "config.env"; then
+    echo "Error: OPENAI_API_KEY not found in config.env. Please add your OpenAI API key."
+    deactivate
+    exit 1
+fi
+
+if ! grep -q 'WHITELIST_EMAILS=' "config.env"; then
+    echo "Error: WHITELIST_EMAILS not found in config.env. Please add your whitelist emails."
     deactivate
     exit 1
 fi
