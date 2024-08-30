@@ -52,7 +52,7 @@ Example `config.env`:
 
 ```env
 OPENAI_API_KEY=your-openai-api-key-here
-WHITELIST_EMAILS=justincrompton@msn.com,anotheremail@example.com
+WHITELIST_EMAILS=anotheremail@msn.com,anotheremail@example.com
 ```
 
 ### 2.3 Run the Setup Script
