@@ -1,20 +1,24 @@
-import os.path
-import base64
-from email.mime.text import MIMEText
-import time
+import os
+from dotenv import load_dotenv
 import openai
+import time
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
+from email.mime.text import MIMEText
+import base64
 import schedule
+
+# Load environment variables from the config.env file
+load_dotenv(dotenv_path="config.env")
+
+# Set up OpenAI API key
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # If modifying these SCOPES, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 
           'https://www.googleapis.com/auth/gmail.send']
-
-# Set up OpenAI API key
-openai.api_key = 'your-openai-api-key-here'
 
 # Functional approach: Helper functions
 def load_credentials():
@@ -123,4 +127,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print ("done")
